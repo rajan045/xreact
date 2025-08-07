@@ -56,13 +56,24 @@ async function main() {
       }
     ]);
 
+    // Ask for React Router DOM
+    const { useReactRouter } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'useReactRouter',
+        message: 'Do you want to use React Router DOM for routing?',
+        default: true
+      }
+    ]);
+
     console.log(chalk.yellow('\n📦 Creating your React project...\n'));
 
     // Generate the project
     await generateProject({
       appName,
       useTypeScript,
-      useTailwind
+      useTailwind,
+      useReactRouter
     });
 
     console.log(chalk.green.bold('\n✅ Project created successfully!'));

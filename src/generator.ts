@@ -8,6 +8,7 @@ interface ProjectConfig {
   appName: string;
   useTypeScript: boolean;
   useTailwind: boolean;
+  useReactRouter: boolean;
 }
 
 /**
@@ -21,7 +22,7 @@ function runCommand(command: string, cwd: string) {
 }
 
 export async function generateProject(config: ProjectConfig) {
-  const { appName, useTypeScript, useTailwind } = config;
+  const { appName, useTypeScript, useTailwind, useReactRouter } = config;
   const projectDir = path.resolve(process.cwd(), appName);
   const parentDir = process.cwd();
 
@@ -34,7 +35,9 @@ export async function generateProject(config: ProjectConfig) {
   }
 
   // 3. React Router
-  await setupReactRouter(projectDir, useTypeScript);
+  if (useReactRouter) {
+    await setupReactRouter(projectDir, useTypeScript);
+  }
 
   // 4. Display final instructions to the user.
   console.log(chalk.green.bold(`\n✨ Success! Your new app "${appName}" is ready.`));
