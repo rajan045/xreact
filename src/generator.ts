@@ -1,28 +1,17 @@
-import fs from 'fs-extra';
 import path from 'path';
 import chalk from 'chalk';
-import { execSync } from 'child_process';
-import { setupTailwind, setupVite, setupReactRouter } from './plugins';
+import { setupTailwind, setupVite, setupReactRouter, setupRtkQuery } from './plugins';
 
 interface ProjectConfig {
   appName: string;
   useTypeScript: boolean;
   useTailwind: boolean;
   useReactRouter: boolean;
-}
-
-/**
- * Executes a command synchronously in a given directory, showing its output.
- * @param command The command to execute.
- * @param cwd The working directory.
- */
-function runCommand(command: string, cwd: string) {
-  console.log(chalk.yellow(`\nRunning: ${command}`));
-  execSync(command, { stdio: 'inherit', cwd });
+  useRtkQuery: boolean;
 }
 
 export async function generateProject(config: ProjectConfig) {
-  const { appName, useTypeScript, useTailwind, useReactRouter } = config;
+  const { appName, useTypeScript, useTailwind, useReactRouter, useRtkQuery } = config;
   const projectDir = path.resolve(process.cwd(), appName);
   const parentDir = process.cwd();
 
@@ -39,9 +28,14 @@ export async function generateProject(config: ProjectConfig) {
     await setupReactRouter(projectDir, useTypeScript);
   }
 
-  // 4. Display final instructions to the user.
+  // 4. RTK Query
+  if (useRtkQuery) {
+    await setupRtkQuery(projectDir, useTypeScript);
+  }
+
+  // 5. Display final instructions to the user.
   console.log(chalk.green.bold(`\n✨ Success! Your new app "${appName}" is ready.`));
-  console.log('\nTo get started, run the following commands:');
+  console.log('\n shelves to get started, run the following commands:');
   console.log(chalk.cyan(`  cd ${appName}`));
   console.log(chalk.cyan('  npm run dev'));
 }

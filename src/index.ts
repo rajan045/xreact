@@ -66,6 +66,16 @@ async function main() {
       }
     ]);
 
+    // Ask for RTK Query
+    const { useRtkQuery } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'useRtkQuery',
+        message: 'Do you want to use RTK Query for API state management?',
+        default: false
+      }
+    ]);
+
     console.log(chalk.yellow('\n📦 Creating your React project...\n'));
 
     // Generate the project
@@ -73,7 +83,8 @@ async function main() {
       appName,
       useTypeScript,
       useTailwind,
-      useReactRouter
+      useReactRouter,
+      useRtkQuery
     });
 
     console.log(chalk.green.bold('\n✅ Project created successfully!'));
