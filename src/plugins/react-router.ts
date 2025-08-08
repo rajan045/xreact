@@ -35,6 +35,7 @@ export async function setupReactRouter(projectDir: string, useTypeScript: boolea
   await installReactRouter(projectDir);
 
   const fileExt = useTypeScript ? 'ts' : 'js';
+  const jsxExt = useTypeScript ? 'tsx' : 'jsx';
   const navDir = path.join(projectDir, 'src', 'navigation');
   const pagesDir = path.join(projectDir, 'src', 'pages');
   const loginDir = path.join(pagesDir, 'login');
@@ -59,7 +60,7 @@ export const Router = () => {
   );
 };
 `;
-  await fs.writeFile(path.join(navDir, `index.${fileExt}`), navIndexContent);
+  await fs.writeFile(path.join(navDir, `index.${jsxExt}`), navIndexContent);
 
   // Create navigation/routes.ts or js
   const routesContent = `import { Route, Routes } from 'react-router-dom';
@@ -78,7 +79,7 @@ export const RoutesSetup = () => {
   );
 };
 `;
-  await fs.writeFile(path.join(navDir, `routes.${fileExt}`), routesContent);
+  await fs.writeFile(path.join(navDir, `routes.${jsxExt}`), routesContent);
 
   // Create pages/login/Login.tsx or js
   const loginContent = `export const Login = () => {
@@ -119,7 +120,9 @@ export const RoutesSetup = () => {
   await fs.writeFile(path.join(homeDir, `Home.${fileExt}x`), homeContent);
 
   // Create components/layout/MainLayout.tsx or js
-  const mainLayoutContent = `export const MainLayout = () => {
+  const mainLayoutContent = `import { Outlet } from 'react-router-dom';
+
+export const MainLayout = () => {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center">
       <main>
@@ -135,13 +138,12 @@ export const RoutesSetup = () => {
   const appFileName = useTypeScript ? 'App.tsx' : 'App.jsx';
   const appFilePath = path.join(projectDir, 'src', appFileName);
   const appContent = `import { Router } from './navigation';
-import { Outlet } from 'react-router-dom';
 
-export const App = () => {
-  return (
-    <Router />
-  );
-};
+function App() {
+  return <Router />;
+}
+
+export default App;
 `;
   await fs.writeFile(appFilePath, appContent);
 

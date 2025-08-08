@@ -1,6 +1,6 @@
 import path from 'path';
 import chalk from 'chalk';
-import { setupTailwind, setupVite, setupReactRouter, setupRtkQuery } from './plugins';
+import { setupTailwind, setupVite, setupReactRouter, setupRtkQuery, setupPrettier, setupEslint } from './plugins';
 
 interface ProjectConfig {
   appName: string;
@@ -8,10 +8,12 @@ interface ProjectConfig {
   useTailwind: boolean;
   useReactRouter: boolean;
   useRtkQuery: boolean;
+  usePrettier: boolean;
+  useEslint: boolean;
 }
 
 export async function generateProject(config: ProjectConfig) {
-  const { appName, useTypeScript, useTailwind, useReactRouter, useRtkQuery } = config;
+  const { appName, useTypeScript, useTailwind, useReactRouter, useRtkQuery, usePrettier, useEslint } = config;
   const projectDir = path.resolve(process.cwd(), appName);
   const parentDir = process.cwd();
 
@@ -33,7 +35,17 @@ export async function generateProject(config: ProjectConfig) {
     await setupRtkQuery(projectDir, useTypeScript);
   }
 
-  // 5. Display final instructions to the user.
+  // 5. Prettier
+  if (usePrettier) {
+    await setupPrettier(projectDir, useTypeScript);
+  }
+
+  // 6. ESLint
+  if (useEslint) {
+    await setupEslint(projectDir, useTypeScript);
+  }
+
+  // 7. Display final instructions to the user.
   console.log(chalk.green.bold(`\n✨ Success! Your new app "${appName}" is ready.`));
   console.log('\n shelves to get started, run the following commands:');
   console.log(chalk.cyan(`  cd ${appName}`));

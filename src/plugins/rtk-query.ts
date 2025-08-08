@@ -204,16 +204,24 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
   const appContent = await fs.readFile(appFilePath, 'utf-8');
   
   // Add import for StoreProvider
-  const updatedAppContent = appContent.replace(
-    /import .+ from 'react';/,
-    `$&\nimport { StoreProvider } from './store/StoreProvider';`
-  ).replace(
-    /return \(([\s\S]*?)\);/,
+  let updatedAppContent = appContent;
+  
+  // Add StoreProvider import after Router import
+  if (!updatedAppContent.includes('StoreProvider')) {
+    updatedAppContent = updatedAppContent.replace(
+      /import { Router } from '\.\/navigation';/,
+      `import { Router } from './navigation';\nimport { StoreProvider } from './store/StoreProvider';`
+    );
+  }
+  
+  // Wrap the Router with StoreProvider
+  updatedAppContent = updatedAppContent.replace(
+    /return <Router \/>;/,
     `return (
-      <StoreProvider>
-        $1
-      </StoreProvider>
-    );`
+    <StoreProvider>
+      <Router />
+    </StoreProvider>
+  );`
   );
 
   await fs.writeFile(appFilePath, updatedAppContent);

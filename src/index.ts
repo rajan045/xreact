@@ -76,6 +76,26 @@ async function main() {
       }
     ]);
 
+    // Ask for Prettier
+    const { usePrettier } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'usePrettier',
+        message: 'Do you want to use Prettier for code formatting?',
+        default: true
+      }
+    ]);
+
+    // Ask for ESLint
+    const { useEslint } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'useEslint',
+        message: 'Do you want to use ESLint for code linting?',
+        default: true
+      }
+    ]);
+
     console.log(chalk.yellow('\n📦 Creating your React project...\n'));
 
     // Generate the project
@@ -84,7 +104,9 @@ async function main() {
       useTypeScript,
       useTailwind,
       useReactRouter,
-      useRtkQuery
+      useRtkQuery,
+      usePrettier,
+      useEslint
     });
 
     console.log(chalk.green.bold('\n✅ Project created successfully!'));
