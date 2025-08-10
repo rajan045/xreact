@@ -251,14 +251,13 @@ export * from './posts/postsApi';
 `;
   await fs.writeFile(path.join(apiDir, `index.${fileExt}`), apiIndexContent);
 
-  // Create hooks/useAppSelector.ts or js - Typed hooks for TypeScript
+  // Create hooks/useAppDispatch.ts or js - Typed hooks for TypeScript
   if (useTypeScript) {
-    const hooksContent = `import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch } from '../store';
+    const hooksContent = `import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '../store';
 
-// Use throughout your app instead of plain \`useDispatch\` and \`useSelector\`
+// Use throughout your app instead of plain \`useDispatch\`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 `;
     await fs.writeFile(path.join(hooksDir, `index.${fileExt}`), hooksContent);
   }

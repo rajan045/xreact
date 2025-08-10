@@ -1,95 +1,82 @@
 # XReact
 
-Interactive React project generator with TypeScript and Tailwind CSS support.
+Create React apps the easy way! Just answer a few questions and get a fully configured project.
 
-## Installation
+## Quick Start
 
 ```bash
 npm install -g xreact
-```
-
-## Usage
-
-```bash
 xreact
 ```
 
-This will start an interactive CLI that will ask you:
+That's it! The CLI will ask you what you want and set everything up.
 
-1. **App Name** - What you want to name your React project
-2. **TypeScript/JavaScript** - Whether you want to use TypeScript or JavaScript
-3. **Tailwind CSS** - Whether you want to include Tailwind CSS for styling
+## What You Get
+
+- **Vite** - Super fast development server
+- **TypeScript or JavaScript** - Your choice
+- **Tailwind CSS** - Optional, for easy styling
+- **React Router** - For multi-page apps
+- **Redux Toolkit** - State management made simple
+- **ESLint & Prettier** - Code formatting that just works
+- **Husky** - Git hooks to keep your code clean
 
 ## Features
 
-- ✅ Interactive CLI with prompts
-- ✅ TypeScript support
-- ✅ JavaScript support
-- ✅ Tailwind CSS integration
-- ✅ Create React App setup
-- ✅ Hot reloading
-- ✅ Production build optimization
-- ✅ Modern React 18 setup
+- 🚀 Modern React 18 with Vite
+- 📁 Smart folder structure with feature-based API organization
+- 🎨 Optional Tailwind CSS integration
+- 🔄 Redux Toolkit Query for API calls
+- 📋 ESLint and Prettier configured
+- 🪝 Git hooks with Husky for code quality
+- ⚡ Hot reloading out of the box
 
 ## Example
 
 ```bash
 $ xreact
 
-🚀 Welcome to XReact - Interactive React Project Generator!
-Let's create your React project...
+? What's your app name? my-cool-app
+? TypeScript or JavaScript? TypeScript
+? Want Tailwind CSS? Yes
+? Need React Router? Yes
+? Want Redux for state management? Yes
 
-? What is your app name? my-awesome-app
-? Do you want to use TypeScript or JavaScript? TypeScript
-? Do you want to use Tailwind CSS? Yes
+✅ All done! Your app is ready.
 
-📦 Creating your React project...
-
-✅ Project created successfully!
-
-Next steps:
-  cd my-awesome-app
-  npm install
-  npm start
-
-Happy coding! 🎉
+cd my-cool-app
+npm install
+npm run dev
 ```
 
-## Generated Project Structure
+## What Gets Created
 
 ```
-my-awesome-app/
-├── public/
-│   └── index.html
+my-cool-app/
 ├── src/
-│   ├── App.tsx (or App.js)
-│   ├── index.tsx (or index.js)
-│   └── index.css
+│   ├── api/           # API calls organized by feature
+│   │   ├── user/      # User-related endpoints
+│   │   └── posts/     # Posts-related endpoints
+│   ├── components/    # Reusable components
+│   ├── pages/         # Your app pages
+│   ├── store/         # Redux store
+│   └── hooks/         # Custom hooks
 ├── package.json
-├── tsconfig.json (if TypeScript)
-├── tailwind.config.js (if Tailwind)
-├── postcss.config.js (if Tailwind)
-└── README.md
+└── all the config files you need
 ```
 
-## Development
+## Contributing
 
-To work on this package locally:
+Want to help make this better?
 
 ```bash
-# Install dependencies
+git clone <this-repo>
 npm install
-
-# Build the package
 npm run build
-
-# Link locally for testing
 npm link
-
-# Test the CLI
-xreact
+xreact  # test it out
 ```
 
 ## License
 
-MIT
+MIT - Go build cool stuff!

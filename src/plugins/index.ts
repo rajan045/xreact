@@ -4,3 +4,4 @@ export * from './react-router';
 export * from './rtk-query';
 export * from './prettier';
 export * from './eslint';
+export * from './husky';
