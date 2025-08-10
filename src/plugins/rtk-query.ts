@@ -123,8 +123,12 @@ export const apiSlice = createApi({
 `;
   await fs.writeFile(path.join(apiDir, `apiSlice.${fileExt}`), apiSliceContent);
 
-  // Create api/userApi.ts or js - Example API endpoints
-  const userApiContent = `import { apiSlice } from './apiSlice';
+  // Create feature-based API structure
+  const userApiDir = path.join(apiDir, 'user');
+  await fs.ensureDir(userApiDir);
+
+  // Create api/user/userApi.ts or js - Example API endpoints
+  const userApiContent = `import { apiSlice } from '../apiSlice';
 
 export interface User {
   id: number;
@@ -176,11 +180,74 @@ export const {
   useDeleteUserMutation,
 } = userApi;
 `;
-  await fs.writeFile(path.join(apiDir, `userApi.${fileExt}`), userApiContent);
+  await fs.writeFile(path.join(userApiDir, `userApi.${fileExt}`), userApiContent);
+
+  // Create posts API as another example of feature-based structure
+  const postsApiDir = path.join(apiDir, 'posts');
+  await fs.ensureDir(postsApiDir);
+
+  // Create api/posts/postsApi.ts or js
+  const postsApiContent = `import { apiSlice } from '../apiSlice';
+
+export interface Post {
+  id: number;
+  title: string;
+  content: string;
+  authorId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const postsApi = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getPosts: builder.query<Post[], void>({
+      query: () => '/posts',
+      providesTags: ['Post'],
+    }),
+    getPostById: builder.query<Post, number>({
+      query: (id) => \`/posts/\${id}\`,
+      providesTags: (result, error, id) => [{ type: 'Post', id }],
+    }),
+    createPost: builder.mutation<Post, Partial<Post>>({
+      query: (newPost) => ({
+        url: '/posts',
+        method: 'POST',
+        body: newPost,
+      }),
+      invalidatesTags: ['Post'],
+    }),
+    updatePost: builder.mutation<Post, { id: number; data: Partial<Post> }>({
+      query: ({ id, data }) => ({
+        url: \`/posts/\${id}\`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Post', id }],
+    }),
+    deletePost: builder.mutation<void, number>({
+      query: (id) => ({
+        url: \`/posts/\${id}\`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, id) => [{ type: 'Post', id }],
+    }),
+  }),
+});
+
+export const {
+  useGetPostsQuery,
+  useGetPostByIdQuery,
+  useCreatePostMutation,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+} = postsApi;
+`;
+  await fs.writeFile(path.join(postsApiDir, `postsApi.${fileExt}`), postsApiContent);
 
   // Create api/index.ts or js - API exports
   const apiIndexContent = `export * from './apiSlice';
-export * from './userApi';
+export * from './user/userApi';
+export * from './posts/postsApi';
 `;
   await fs.writeFile(path.join(apiDir, `index.${fileExt}`), apiIndexContent);
 
@@ -229,9 +296,12 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
   console.log(chalk.green('✅ RTK Query setup completed!'));
   console.log(chalk.blue('\n📁 Created folder structure:'));
   console.log(chalk.white('  src/store/         - Redux store configuration'));
-  console.log(chalk.white('  src/api/           - API slices and endpoints'));
+  console.log(chalk.white('  src/api/           - API base configuration'));
+  console.log(chalk.white('  src/api/user/      - User-related API endpoints'));
+  console.log(chalk.white('  src/api/posts/     - Posts-related API endpoints'));
   console.log(chalk.white('  src/hooks/         - Typed Redux hooks (TypeScript only)'));
   console.log(chalk.blue('\n📝 Example usage:'));
-  console.log(chalk.white('  import { useGetUsersQuery } from "./api";'));
+  console.log(chalk.white('  import { useGetUsersQuery, useGetPostsQuery } from "./api";'));
   console.log(chalk.white('  const { data: users, isLoading } = useGetUsersQuery();'));
+  console.log(chalk.white('  const { data: posts } = useGetPostsQuery();'));
 } 
