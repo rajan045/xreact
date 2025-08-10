@@ -1,7 +1,7 @@
 {
-  "name": "xreact",
+  "name": "x-react-kit",
   "version": "1.0.0",
-  "description": "Interactive React project generator with TypeScript and Tailwind CSS support",
+  "description": "Create React apps the easy way! Modern React project generator with Vite, TypeScript, Tailwind CSS, and more.",
   "main": "dist/index.js",
   "bin": {
     "xreact": "dist/index.js"
@@ -18,9 +18,15 @@
     "tailwind",
     "generator",
     "cli",
-    "create-react-app"
+    "vite",
+    "redux",
+    "rtk-query",
+    "react-router",
+    "project-generator",
+    "scaffolding",
+    "boilerplate"
   ],
-  "author": "Your Name",
+  "author": "Rajan Singh",
   "license": "MIT",
   "dependencies": {
     "inquirer": "^9.2.12",

@@ -5,7 +5,7 @@ Create React apps the easy way! Just answer a few questions and get a fully conf
 ## Quick Start
 
 ```bash
-npm install -g xreact
+npm install -g x-react-kit
 xreact
 ```
 
