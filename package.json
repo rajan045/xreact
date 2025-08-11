@@ -1,11 +1,12 @@
 {
   "name": "x-react-kit",
-  "version": "5.3.1",
-  "description": "Create React apps the easy way! Modern React project generator with Vite, TypeScript, Tailwind CSS, and more.",
+  "version": "5.5.2",
+  "description": "Use via: npm create x-react-kit (or npx x-react-kit). Create React apps the easy way with Vite, TypeScript, Tailwind, and more.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "xreact": "dist/index.js"
+    "xreact": "dist/index.js",
+    "x-react-kit": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",

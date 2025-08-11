@@ -1,0 +1,30 @@
+{
+  "name": "create-x-react-kit",
+  "version": "5.5.2",
+  "description": "Run the XReact project generator. Recommended: npm create x-react-kit.",
+  "bin": {
+    "create-x-react-kit": "index.js"
+  },
+  "keywords": [
+    "scaffold",
+    "react",
+    "vite",
+    "cli",
+    "generator"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "x-react-kit": "^5.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rajan045/xreact.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
+

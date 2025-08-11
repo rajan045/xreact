@@ -5,9 +5,16 @@ Create React apps the easy way! Just answer a few questions and get a fully conf
 ## Quick Start
 
 ```bash
-npm install -g x-react-kit
-xreact
+# Recommended
+npm create x-react-kit
+
+# Alternatives
+npx x-react-kit
+# or (auto-run during install)
+npm i --foreground-scripts x-react-kit
 ```
+
+> Note: Plain `npm i x-react-kit` will not show prompts in most terminals because npm runs postinstall without a TTY. Use one of the commands above for the interactive experience.
 
 That's it! The CLI will ask you what you want and set everything up.
 

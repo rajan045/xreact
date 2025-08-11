@@ -37,10 +37,12 @@ async function postInstall() {
       console.log(chalk.cyan('     npm run create-app'));
       console.log(chalk.gray('\n💡 For global access, install with: npm install -g x-react-kit\n'));
 
-      // Auto-run the generator on install if interactive, not CI, and not global
+      // Auto-run the generator on install if not CI and not global.
+      // Require either a TTY or npm foreground scripts so interactive prompts can be displayed.
       const isCI = Boolean(process.env.CI);
-      const isTTY = process.stdin.isTTY;
-      const shouldAutoRun = process.env.XREACT_AUTO_RUN !== 'false' && isTTY && !isCI;
+      const isTTY = Boolean(process.stdin.isTTY && process.stdout.isTTY);
+      const npmForeground = process.env.npm_config_foreground_scripts === 'true';
+      const shouldAutoRun = process.env.XREACT_AUTO_RUN !== 'false' && !isCI && (isTTY || npmForeground);
 
       if (shouldAutoRun) {
         const originalCwd = process.env.INIT_CWD || process.cwd();
@@ -57,7 +59,14 @@ async function postInstall() {
           console.log(chalk.yellow('\n⚠️  Generator did not complete during postinstall. You can run it later using one of the methods above.'));
         }
       } else {
-        console.log(chalk.gray('\nℹ️  Skipping auto-run (non-interactive/CI/global). Use the commands above to start the generator.'));
+        console.log(chalk.gray('\nℹ️  Skipping auto-run (non-interactive/CI/global).'));
+        console.log(chalk.white('   Run manually with one of:'));
+        console.log(chalk.cyan('     npx x-react-kit'));
+        console.log(chalk.cyan('     ./node_modules/.bin/xreact'));
+        console.log(chalk.white('\n   To auto-run on install next time, use:'));
+        console.log(chalk.cyan('     npm i --foreground-scripts x-react-kit'));
+        console.log(chalk.white('   Or persist this setting:'));
+        console.log(chalk.cyan('     npm config set foreground-scripts true'));
       }
     }
   } catch (error) {
