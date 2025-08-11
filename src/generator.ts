@@ -47,7 +47,7 @@ export async function generateProject(config: ProjectConfig) {
 
   // 7. Display final instructions to the user.
   console.log(chalk.green.bold(`\n✨ Success! Your new app "${appName}" is ready.`));
-  console.log('\n shelves to get started, run the following commands:');
+  console.log('\nTo get started, run the following commands:');
   console.log(chalk.cyan(`  cd ${appName}`));
   console.log(chalk.cyan('  npm run dev'));
 }

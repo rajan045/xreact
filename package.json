@@ -1,8 +1,9 @@
 {
   "name": "x-react-kit",
-  "version": "1.0.0",
+  "version": "5.1.0",
   "description": "Create React apps the easy way! Modern React project generator with Vite, TypeScript, Tailwind CSS, and more.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "xreact": "dist/index.js"
   },
@@ -10,8 +11,10 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node dist/postinstall.js"
   },
+  "preferGlobal": true,
   "keywords": [
     "react",
     "typescript",
@@ -28,11 +31,21 @@
   ],
   "author": "Rajan Singh",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rajan045/xreact.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rajan045/xreact/issues"
+  },
+  "homepage": "https://github.com/rajan045/xreact#readme",
   "dependencies": {
     "inquirer": "^9.2.12",
     "chalk": "^4.1.2",
-    "fs-extra": "^11.2.0",
-    "path": "^0.12.7"
+    "fs-extra": "^11.2.0"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.7",
@@ -41,7 +54,6 @@
     "typescript": "^5.3.0"
   },
   "files": [
-    "dist",
-    "templates"
+    "dist"
   ]
 }
