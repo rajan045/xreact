@@ -1,0 +1,20 @@
+{
+  "name": "xreact-add-rtk-query",
+  "version": "5.5.3",
+  "description": "Add RTK Query setup to an existing React app (auto-detects TypeScript).",
+  "bin": {
+    "xreact-add-rtk-query": "index.js"
+  },
+  "keywords": ["xreact", "redux", "rtk", "rtk-query", "react", "cli"],
+  "license": "MIT",
+  "engines": { "node": ">=16.0.0" },
+  "dependencies": {
+    "x-react-kit": "^5.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rajan045/xreact.git"
+  },
+  "publishConfig": { "access": "public" }
+}
+
